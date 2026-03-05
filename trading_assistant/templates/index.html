@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Candle Close Trading Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>AI Candle Close Trading Assistant</h1>
+      <p class="subtitle">Upload a chart screenshot, receive a pre-trade signal, then confirm after candle close.</p>
+
+      {% if error %}
+      <section class="panel error">{{ error }}</section>
+      {% endif %}
+
+      <section class="panel">
+        <h2>1) Upload Screenshot</h2>
+        <form action="/analyze" method="post" enctype="multipart/form-data" class="stack">
+          <label>Pair (e.g., GBPUSD, XAUUSD, US30)</label>
+          <input type="text" name="pair" placeholder="GBPUSD" required />
+
+          <label>Chart Screenshot</label>
+          <input type="file" name="screenshot" accept="image/*" required />
+
+          <button type="submit">Analyze Screenshot</button>
+        </form>
+      </section>
+
+      {% if signal %}
+      <section class="panel signal">
+        <h2>AI Analysis Panel — Pre-Trade Signal</h2>
+        <pre>PAIR: {{ signal.pair }}
+DIRECTION: {{ signal.direction }}
+ENTRY ZONE: {{ signal.entry_zone }}
+STOP LOSS: {{ signal.stop_loss }}
+TAKE PROFIT: {{ signal.take_profit }}
+REASON: {{ signal.reason }}
+
+STATUS: {{ signal.status }}</pre>
+      </section>
+
+      <section class="panel">
+        <h2>2) Update Analysis After Candle Close</h2>
+        <form action="/update" method="post" enctype="multipart/form-data" class="stack">
+          <input type="hidden" name="analysis_id" value="{{ analysis_id }}" />
+
+          <label>New Screenshot (after close)</label>
+          <input type="file" name="update_screenshot" accept="image/*" required />
+          <button type="submit">Update Analysis</button>
+        </form>
+      </section>
+      {% endif %}
+
+      {% if final_update %}
+      <section class="panel decision">
+        <h2>Trade Signal Display</h2>
+        <pre>{{ final_update.final_decision }}
+Updated entry price: {{ final_update.updated_entry }}
+Stop loss: {{ final_update.stop_loss }}
+Take profit: {{ final_update.take_profit }}
+Reason: {{ final_update.reasoning }}</pre>
+      </section>
+      {% endif %}
+    </main>
+  </body>
+</html>
