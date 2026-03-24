@@ -75,7 +75,8 @@ const pageStyles = `
 
   .hero-logo {
     width: min(360px, 78vw);
-    margin-bottom: 18px;
+    margin-top: 36px;
+    margin-bottom: 22px;
     filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45));
   }
 
@@ -246,6 +247,32 @@ const pageStyles = `
 
   .footer-cta h2 { font-size: clamp(48px, 8vw, 96px); }
 
+  .origin-site {
+    margin-top: 24px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 1px solid rgba(61, 124, 198, 0.45);
+    background: rgba(11, 17, 28, 0.9);
+  }
+
+  .origin-site p {
+    color: #c2cde0;
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .origin-link {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1px dashed rgba(255, 209, 102, 0.6);
+    padding-bottom: 2px;
+  }
+
   .kasi-footer {
     border-top: 1px solid rgba(255,255,255,0.06);
     padding: 32px 40px;
@@ -349,6 +376,17 @@ export default function Homepage() {
           </a>
           <a className="btn-ghost" href="#plans">
             See Packages ↓
+          </a>
+        </div>
+        <div className="origin-site">
+          <p>From your first site: “Real Jobs. Real Proof. Real Results.”</p>
+          <a
+            className="origin-link"
+            href="https://mandela-corner-app-b9wcwumn.devinapps.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Visit your first KASI FIRST site
           </a>
         </div>
       </section>
