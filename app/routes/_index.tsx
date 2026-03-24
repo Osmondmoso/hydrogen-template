@@ -13,6 +13,9 @@ const pageStyles = `
     --dark2: #161616;
     --dark3: #1e1e1e;
     --card: #1a1a1a;
+    --blue: #3d7cc6;
+    --blue-light: #6ea2df;
+    --red: #f05b4f;
     --green: #22c55e;
     --white: #f9f5ee;
     --muted: #999;
@@ -48,9 +51,9 @@ const pageStyles = `
     align-items: center;
     justify-content: space-between;
     padding: 18px 40px;
-    background: rgba(13, 13, 13, 0.85);
+    background: rgba(6, 10, 17, 0.88);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(245, 166, 35, 0.12);
+    border-bottom: 1px solid rgba(61, 124, 198, 0.35);
   }
 
   .nav-logo {
@@ -59,7 +62,7 @@ const pageStyles = `
     gap: 12px;
     font-size: 20px;
     letter-spacing: 2px;
-    color: var(--gold);
+    color: var(--blue-light);
     font-weight: 700;
   }
 
@@ -67,7 +70,7 @@ const pageStyles = `
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 1px solid rgba(245, 166, 35, 0.3);
+    border: 1px solid rgba(61, 124, 198, 0.45);
   }
 
   .hero-logo {
@@ -79,7 +82,7 @@ const pageStyles = `
   .nav-cta, .btn-primary, .plan-btn { text-decoration: none; }
 
   .nav-cta {
-    background: var(--gold);
+    background: linear-gradient(135deg, var(--blue), #315f97);
     color: var(--dark);
     font-weight: 700;
     font-size: 14px;
@@ -106,7 +109,7 @@ const pageStyles = `
     transform: translateX(-50%);
     width: 800px;
     height: 800px;
-    background: radial-gradient(circle, rgba(245, 166, 35, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(61, 124, 198, 0.25) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -115,7 +118,7 @@ const pageStyles = `
     gap: 8px;
     background: rgba(245, 166, 35, 0.12);
     border: 1px solid rgba(245, 166, 35, 0.3);
-    color: var(--gold);
+    color: var(--blue-light);
     font-size: 13px;
     font-weight: 600;
     padding: 8px 18px;
@@ -129,7 +132,7 @@ const pageStyles = `
     letter-spacing: 4px;
   }
 
-  .hero h1 span { color: var(--gold); display: block; }
+  .hero h1 span { color: var(--blue-light); display: block; }
 
   .hero-sub {
     max-width: 600px;
@@ -145,7 +148,7 @@ const pageStyles = `
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: var(--gold);
+    background: linear-gradient(135deg, var(--blue), #315f97);
     color: var(--dark);
     font-weight: 800;
     font-size: 16px;
@@ -161,7 +164,7 @@ const pageStyles = `
     font-size: 16px;
     padding: 16px 32px;
     border-radius: 50px;
-    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border: 1.5px solid rgba(61, 124, 198, 0.45);
     text-decoration: none;
   }
 
@@ -177,7 +180,7 @@ const pageStyles = `
     border-right: 1px solid rgba(255, 255, 255, 0.07);
   }
 
-  .stat-number { font-size: 52px; color: var(--gold); }
+  .stat-number { font-size: 52px; color: var(--blue-light); }
   .stat-label { font-size: 13px; color: var(--muted); text-transform: uppercase; }
 
   .divider { height: 1px; background: rgba(255, 255, 255, 0.05); max-width: 1200px; margin: 0 auto; }
@@ -196,7 +199,7 @@ const pageStyles = `
   .proof-section { background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
   .testimonials { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 
-  .plan-card.featured { border: 2px solid var(--gold); background: linear-gradient(145deg, #1f1a0e, #1a1a1a); }
+  .plan-card.featured { border: 2px solid var(--blue); background: linear-gradient(145deg, #10192b, #171717); }
   .plan-badge, .discount-tag {
     display: inline-block;
     border-radius: 50px;
@@ -205,11 +208,11 @@ const pageStyles = `
     padding: 4px 12px;
     margin-bottom: 12px;
   }
-  .plan-badge { background: var(--gold); color: var(--dark); }
-  .discount-tag { color: var(--green); border: 1px solid rgba(34,197,94,.25); }
+  .plan-badge { background: var(--blue); color: #fff; }
+  .discount-tag { color: var(--red); border: 1px solid rgba(240, 91, 79, 0.45); }
 
   .plan-name { font-size: 28px; margin-bottom: 6px; }
-  .plan-price { margin: 12px 0; font-size: 20px; color: var(--gold); }
+  .plan-price { margin: 12px 0; font-size: 20px; color: var(--blue-light); }
   .amount { font-size: 56px; }
   .plan-tagline { color: var(--muted); }
   .plan-features { margin: 20px 0; padding-left: 18px; color: #ccc; }
@@ -221,12 +224,12 @@ const pageStyles = `
     border-radius: 50px;
     font-weight: 700;
   }
-  .plan-btn.primary { background: var(--gold); color: var(--dark); }
-  .plan-btn.outline { border: 1px solid rgba(255,255,255,0.2); color: var(--white); }
+  .plan-btn.primary { background: linear-gradient(135deg, var(--blue), #315f97); color: #fff; }
+  .plan-btn.outline { border: 1px solid rgba(61, 124, 198, 0.4); color: var(--white); }
 
   .payment-box {
     background: var(--dark2);
-    border: 1px solid rgba(245,166,35,0.15);
+    border: 1px solid rgba(61, 124, 198, 0.25);
     border-radius: var(--radius);
     padding: 42px 32px;
     text-align: center;
@@ -236,7 +239,7 @@ const pageStyles = `
 
   .footer-cta {
     background: linear-gradient(135deg, #1a1300, #0d0d0d);
-    border-top: 1px solid rgba(245,166,35,0.15);
+    border-top: 1px solid rgba(61, 124, 198, 0.35);
     text-align: center;
     padding: 100px 24px;
   }
@@ -496,7 +499,7 @@ export default function Homepage() {
 
       <section className="footer-cta">
         <h2>
-          READY TO GET <span style={{color: 'var(--gold)'}}>HIRED?</span>
+          READY TO GET <span style={{color: 'var(--blue-light)'}}>HIRED?</span>
         </h2>
         <a
           className="btn-primary"
