@@ -247,30 +247,21 @@ const pageStyles = `
 
   .footer-cta h2 { font-size: clamp(48px, 8vw, 96px); }
 
-  .origin-site {
-    margin-top: 24px;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    padding: 18px 22px;
-    border-radius: 14px;
-    border: 1px solid rgba(61, 124, 198, 0.45);
-    background: rgba(11, 17, 28, 0.9);
+  .tech-strip {
+    border-top: 1px solid rgba(61, 124, 198, 0.3);
+    border-bottom: 1px solid rgba(61, 124, 198, 0.3);
+    padding: 14px 20px;
+    text-align: center;
+    color: #9fc0e7;
+    letter-spacing: 1px;
+    font-size: 13px;
+    background: rgba(9, 14, 24, 0.9);
   }
 
-  .origin-site p {
-    color: #c2cde0;
-    font-size: 14px;
-    margin: 0;
-  }
-
-  .origin-link {
-    color: var(--gold-light);
-    text-decoration: none;
-    font-weight: 700;
-    border-bottom: 1px dashed rgba(255, 209, 102, 0.6);
-    padding-bottom: 2px;
+  .sub-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
 
   .kasi-footer {
@@ -378,18 +369,12 @@ export default function Homepage() {
             See Packages ↓
           </a>
         </div>
-        <div className="origin-site">
-          <p>From your first site: “Real Jobs. Real Proof. Real Results.”</p>
-          <a
-            className="origin-link"
-            href="https://mandela-corner-app-b9wcwumn.devinapps.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Visit your first KASI FIRST site
-          </a>
-        </div>
       </section>
+
+      <div className="tech-strip">
+        ⚡ AI-Powered CV Builder • 🎯 ATS Keyword Optimized • 📲 WhatsApp
+        Updates • ✅ Screenshot Proof Sent • 💳 Pay with 1Voucher
+      </div>
 
       <div className="stats-bar">
         <div className="stat-item">
@@ -520,6 +505,54 @@ export default function Homepage() {
               rel="noreferrer"
             >
               Claim Full Deal — R149
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section className="section fade-up">
+        <h2 className="section-title">STAY IN THE GAME</h2>
+        <p className="section-desc">
+          Keep your momentum going with weekly or monthly support while we keep
+          hunting for opportunities.
+        </p>
+        <div className="sub-grid">
+          <article className="sub-card">
+            <div className="plan-name">Monthly Hunter</div>
+            <div className="plan-price">
+              R <span className="amount">199</span> /month
+            </div>
+            <ul className="plan-features">
+              <li>20 applications submitted every month</li>
+              <li>Proof sent directly to WhatsApp</li>
+              <li>AI CV updated continuously</li>
+            </ul>
+            <a
+              className="plan-btn primary"
+              href="https://wa.me/27849640891?text=Hi%20KASI%20FIRST,%20I%20want%20the%20Monthly%20Hunter."
+              target="_blank"
+              rel="noreferrer"
+            >
+              Subscribe Monthly
+            </a>
+          </article>
+          <article className="sub-card">
+            <div className="plan-name">Weekly Leads</div>
+            <div className="plan-price">
+              R <span className="amount">49</span> /week
+            </div>
+            <ul className="plan-features">
+              <li>10 fresh East Rand leads every week</li>
+              <li>Curated roles sent to WhatsApp</li>
+              <li>Perfect for active job seekers</li>
+            </ul>
+            <a
+              className="plan-btn outline"
+              href="https://wa.me/27849640891?text=Hi%20KASI%20FIRST,%20I%20want%20Weekly%20Lead%20Alerts."
+              target="_blank"
+              rel="noreferrer"
+            >
+              Get Weekly Leads
             </a>
           </article>
         </div>
