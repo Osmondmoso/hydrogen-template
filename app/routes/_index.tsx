@@ -1,5 +1,5 @@
 import {type MetaFunction} from '@remix-run/react';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 export const meta: MetaFunction = () => {
   return [{title: 'KASI FIRST — Job Hunters'}];
@@ -301,9 +301,68 @@ const pageStyles = `
     .section { padding: 60px 20px; }
     .kasi-footer { flex-direction: column; text-align: center; }
   }
+
+  .talk-helper {
+    position: fixed;
+    left: 20px;
+    bottom: 24px;
+    z-index: 999;
+    width: min(340px, calc(100vw - 40px));
+    background: rgba(10, 16, 27, 0.96);
+    border: 1px solid rgba(61, 124, 198, 0.45);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .talk-helper h4 {
+    margin: 0 0 8px;
+    color: var(--blue-light);
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .talk-helper p {
+    margin: 0 0 10px;
+    color: #c8d8ed;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .talk-controls {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+  }
+
+  .talk-controls input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(61, 124, 198, 0.35);
+    color: #fff;
+    border-radius: 10px;
+    padding: 9px 11px;
+  }
+
+  .talk-controls button {
+    border: 0;
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--blue), #315f97);
+    color: white;
+  }
 `;
 
 export default function Homepage() {
+  const [helperInput, setHelperInput] = useState(
+    'How can I start job hunting with KASI FIRST?',
+  );
+  const [helperReply, setHelperReply] = useState(
+    'Tap ask and I will answer and speak the response for you.',
+  );
+  const [isTalking, setIsTalking] = useState(false);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -321,6 +380,36 @@ export default function Homepage() {
 
     return () => observer.disconnect();
   }, []);
+
+  async function askHelper() {
+    if (!helperInput.trim()) return;
+    setIsTalking(true);
+    try {
+      const response = await fetch('/api/talk-helper', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({message: helperInput}),
+      });
+      const data = (await response.json()) as {reply?: string};
+      const reply =
+        data.reply ??
+        'Please WhatsApp us now and we will begin with your CV and job applications immediately.';
+      setHelperReply(reply);
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(reply);
+        utter.rate = 1;
+        utter.pitch = 1;
+        window.speechSynthesis.speak(utter);
+      }
+    } catch (error) {
+      setHelperReply(
+        'I could not reach the assistant right now. Please use the WhatsApp button to continue.',
+      );
+    } finally {
+      setIsTalking(false);
+    }
+  }
 
   return (
     <main className="kasi-page">
@@ -596,6 +685,20 @@ export default function Homepage() {
       >
         🟢
       </a>
+      <div className="talk-helper">
+        <h4>🎙️ Talking Helper</h4>
+        <p>{helperReply}</p>
+        <div className="talk-controls">
+          <input
+            value={helperInput}
+            onChange={(event) => setHelperInput(event.target.value)}
+            placeholder="Ask about prices, packages, or how to start"
+          />
+          <button type="button" onClick={askHelper} disabled={isTalking}>
+            {isTalking ? '...' : 'Ask'}
+          </button>
+        </div>
+      </div>
     </main>
   );
 }
