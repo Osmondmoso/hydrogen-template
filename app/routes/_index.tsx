@@ -27,6 +27,8 @@ const pageStyles = `
     color: var(--white);
     font-family: 'Outfit', sans-serif;
     overflow-x: hidden;
+    margin: 0 -1rem -1rem;
+    width: calc(100% + 2rem);
   }
 
   .kasi-page::before {
@@ -190,6 +192,7 @@ const pageStyles = `
   .section-desc { color: #aaa; max-width: 500px; margin-bottom: 32px; }
 
   .steps, .plans-grid, .sub-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .plans-grid { align-items: stretch; }
   .step-card, .plan-card, .sub-card, .testi-card {
     background: var(--card);
     border: 1px solid rgba(255, 255, 255, 0.07);
@@ -201,6 +204,11 @@ const pageStyles = `
   .testimonials { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 
   .plan-card.featured { border: 2px solid var(--blue); background: linear-gradient(145deg, #10192b, #171717); }
+  .plan-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
   .plan-badge, .discount-tag {
     display: inline-block;
     border-radius: 50px;
@@ -224,6 +232,7 @@ const pageStyles = `
     padding: 14px;
     border-radius: 50px;
     font-weight: 700;
+    margin-top: auto;
   }
   .plan-btn.primary { background: linear-gradient(135deg, var(--blue), #315f97); color: #fff; }
   .plan-btn.outline { border: 1px solid rgba(61, 124, 198, 0.4); color: var(--white); }
@@ -273,22 +282,6 @@ const pageStyles = `
     gap: 16px;
     font-size: 13px;
     color: var(--muted);
-  }
-
-  .wa-float {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    z-index: 999;
-    width: 60px;
-    height: 60px;
-    background: #25d366;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    color: #fff;
-    font-size: 28px;
-    text-decoration: none;
   }
 
   .fade-up { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
@@ -425,7 +418,7 @@ export default function Homepage() {
           target="_blank"
           rel="noreferrer"
         >
-          📲 Chat Now
+          Chat Now
         </a>
       </nav>
 
@@ -452,7 +445,7 @@ export default function Homepage() {
             target="_blank"
             rel="noreferrer"
           >
-            🚀 Start Now on WhatsApp
+            Start Now on WhatsApp
           </a>
           <a className="btn-ghost" href="#plans">
             See Packages ↓
@@ -461,8 +454,8 @@ export default function Homepage() {
       </section>
 
       <div className="tech-strip">
-        ⚡ AI-Powered CV Builder • 🎯 ATS Keyword Optimized • 📲 WhatsApp
-        Updates • ✅ Screenshot Proof Sent • 💳 Pay with 1Voucher
+        AI-Powered CV Builder • ATS Keyword Optimized • WhatsApp Updates •
+        Screenshot Proof Sent • Pay with 1Voucher
       </div>
 
       <div className="stats-bar">
@@ -493,19 +486,19 @@ export default function Homepage() {
         </p>
         <div className="steps">
           <article className="step-card">
-            <h3>01 📲 WhatsApp Us</h3>
+            <h3>01 WhatsApp Us</h3>
             <p>Send us a quick message. No forms, no data, no printing.</p>
           </article>
           <article className="step-card">
-            <h3>02 🤖 AI Builds Your CV</h3>
+            <h3>02 AI Builds Your CV</h3>
             <p>Professional recruiter-ready CV optimized to get noticed.</p>
           </article>
           <article className="step-card">
-            <h3>03 🎯 We Hunt Jobs</h3>
+            <h3>03 We Hunt Jobs</h3>
             <p>We search and apply to the best matching jobs in your area.</p>
           </article>
           <article className="step-card">
-            <h3>04 📸 Proof Delivered</h3>
+            <h3>04 Proof Delivered</h3>
             <p>Screenshot proof of every single application submitted.</p>
           </article>
         </div>
@@ -537,7 +530,7 @@ export default function Homepage() {
         <h2 className="section-title">PACKAGES</h2>
         <div className="plans-grid">
           <article className="plan-card">
-            <div className="discount-tag">🔥 40% OFF</div>
+            <div className="discount-tag">40% OFF</div>
             <div className="plan-name">The Starter</div>
             <div className="plan-price">
               R <span className="amount">35</span> <s>R59</s>
@@ -557,8 +550,8 @@ export default function Homepage() {
             </a>
           </article>
           <article className="plan-card featured">
-            <div className="plan-badge">⭐ Most Popular</div>
-            <div className="discount-tag">🔥 40% OFF</div>
+            <div className="plan-badge">Most Popular</div>
+            <div className="discount-tag">40% OFF</div>
             <div className="plan-name">The Pro</div>
             <div className="plan-price">
               R <span className="amount">59</span> <s>R99</s>
@@ -667,7 +660,7 @@ export default function Homepage() {
           target="_blank"
           rel="noreferrer"
         >
-          📲 Start on WhatsApp Now
+          Start on WhatsApp Now
         </a>
       </section>
 
@@ -676,17 +669,8 @@ export default function Homepage() {
         <div>© 2025 KASI FIRST Job Solutions · East Rand, Johannesburg</div>
       </footer>
 
-      <a
-        className="wa-float"
-        href="https://wa.me/27849640891?text=Hi%20KASI%20FIRST,%20I%20need%20help%20finding%20a%20job!"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Chat on WhatsApp"
-      >
-        🟢
-      </a>
       <div className="talk-helper">
-        <h4>🎙️ Talking Helper</h4>
+        <h4>Talking Helper</h4>
         <p>{helperReply}</p>
         <div className="talk-controls">
           <input
