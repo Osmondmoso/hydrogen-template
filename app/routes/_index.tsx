@@ -54,10 +54,26 @@ const pageStyles = `
   }
 
   .nav-logo {
-    font-size: 28px;
-    letter-spacing: 3px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    letter-spacing: 2px;
     color: var(--gold);
     font-weight: 700;
+  }
+
+  .nav-logo img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(245, 166, 35, 0.3);
+  }
+
+  .hero-logo {
+    width: min(360px, 78vw);
+    margin-bottom: 18px;
+    filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45));
   }
 
   .nav-cta, .btn-primary, .plan-btn { text-decoration: none; }
@@ -289,7 +305,10 @@ export default function Homepage() {
     <main className="kasi-page">
       <style>{pageStyles}</style>
       <nav className="kasi-nav">
-        <div className="nav-logo">KASI FIRST</div>
+        <div className="nav-logo">
+          <img src="/kasi-first-logo.svg" alt="KASI FIRST logo" />
+          <span>KASI FIRST</span>
+        </div>
         <a
           className="nav-cta"
           href="https://wa.me/27849640891?text=Hi%20KASI%20FIRST,%20I%20need%20help%20finding%20a%20job!"
@@ -302,6 +321,11 @@ export default function Homepage() {
 
       <section className="hero">
         <div className="hero-glow" />
+        <img
+          className="hero-logo"
+          src="/kasi-first-logo.svg"
+          alt="KASI FIRST"
+        />
         <div className="badge">East Rand&apos;s #1 Job Hunting Service</div>
         <h1>
           WE HUNT<span>JOBS FOR YOU.</span>

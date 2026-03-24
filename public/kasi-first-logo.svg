@@ -1,0 +1,25 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">KASI FIRST logo</title>
+  <desc id="desc">Circular navy logo with crown icon and KASI FIRST text.</desc>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(450 360) rotate(90) scale(460)">
+      <stop stop-color="#3D3F59"/>
+      <stop offset="1" stop-color="#1D1E2C"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="450" cy="365" r="300" fill="url(#bg)"/>
+
+  <path d="M355 188L385 280L425 238L454 128L498 256L540 155L555 269" stroke="#F05B4F" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M364 310C412 278 462 260 509 264C531 266 546 272 553 286C560 301 552 315 534 322C486 341 433 339 377 323" stroke="#F05B4F" stroke-width="10" stroke-linecap="round" fill="none"/>
+
+  <text x="450" y="438" text-anchor="middle" font-size="122" font-weight="700" fill="#3D7CC6" font-family="Arial, Helvetica, sans-serif" letter-spacing="4">KASI</text>
+  <text x="450" y="560" text-anchor="middle" font-size="122" font-weight="700" fill="#3D7CC6" font-family="Arial, Helvetica, sans-serif" letter-spacing="4">FIRST</text>
+
+  <ellipse cx="395" cy="466" rx="12" ry="20" fill="#F05B4F"/>
+  <circle cx="646" cy="547" r="11" fill="#F5A623"/>
+
+  <rect x="220" y="648" width="460" height="120" fill="white" stroke="#6E6E6E" stroke-width="2" stroke-dasharray="8 8"/>
+  <text x="450" y="702" text-anchor="middle" font-size="30" font-weight="700" fill="#3A3A42" font-family="Arial, Helvetica, sans-serif">CLOSING THE GAP BETWEEN</text>
+  <text x="450" y="740" text-anchor="middle" font-size="30" font-weight="700" fill="#3A3A42" font-family="Arial, Helvetica, sans-serif">THE KASI AND THE CAREER</text>
+</svg>
