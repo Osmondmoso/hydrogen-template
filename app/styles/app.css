@@ -484,3 +484,129 @@ button.reset:hover:not(:has(> *)) {
 .account-logout {
   display: inline-block;
 }
+
+/*
+* --------------------------------------------------
+* Kasi First Android-style landing app
+* --------------------------------------------------
+*/
+.kasi-app {
+  background: radial-gradient(circle at top, #132043 0%, #02030a 60%);
+  min-height: calc(100vh - var(--header-height));
+  padding: 1rem 0.75rem 2rem;
+}
+
+.kasi-phone-shell {
+  color: #e5edff;
+  margin: 0 auto;
+  max-width: 480px;
+}
+
+.kasi-hero {
+  background: linear-gradient(150deg, #081529, #0f2750 60%, #112e5f);
+  border: 1px solid #2c4d86;
+  border-radius: 1.25rem;
+  margin-bottom: 1rem;
+  padding: 1.2rem;
+}
+
+.kasi-brandmark {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.kasi-crown {
+  color: #ef5f56;
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.kasi-wordmark {
+  color: #5e8ad6;
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.kasi-tagline {
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.kasi-primary {
+  background: linear-gradient(145deg, #ef5f56, #e24942);
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  padding: 0.7rem 1rem;
+  width: 100%;
+}
+
+.kasi-card {
+  background: rgba(9, 19, 39, 0.9);
+  border: 1px solid #1d3b71;
+  border-radius: 1rem;
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+}
+
+.kasi-card h2,
+.kasi-card h3 {
+  margin-top: 0;
+}
+
+.kasi-card ol {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.kasi-template-grid,
+.kasi-job-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.kasi-template-item,
+.kasi-job-item {
+  background: rgba(27, 49, 88, 0.7);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+}
+
+.kasi-job-item {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.kasi-job-item h3,
+.kasi-template-item h3,
+.kasi-job-item p,
+.kasi-template-item p {
+  margin: 0;
+}
+
+.kasi-download-card {
+  margin-bottom: 4.4rem;
+}
+
+.kasi-bottom-nav {
+  backdrop-filter: blur(14px);
+  background: rgba(3, 8, 17, 0.75);
+  border: 1px solid #1d3b71;
+  border-radius: 999px;
+  bottom: 0.75rem;
+  display: flex;
+  font-size: 0.85rem;
+  justify-content: space-around;
+  left: 50%;
+  max-width: 420px;
+  padding: 0.7rem;
+  position: fixed;
+  transform: translateX(-50%);
+  width: calc(100% - 1rem);
+}
