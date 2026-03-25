@@ -105,6 +105,39 @@ const pageStyles = `
     z-index: 1;
   }
 
+  .free-offer {
+    position: relative;
+    z-index: 2;
+    margin-top: 88px;
+    margin-inline: auto;
+    width: min(980px, calc(100% - 32px));
+    border: 1px solid rgba(61, 124, 198, 0.45);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(20, 33, 56, 0.92), rgba(12, 21, 36, 0.92));
+    padding: 12px 16px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .free-offer strong {
+    color: var(--gold-light);
+    letter-spacing: 0.3px;
+  }
+
+  .free-offer a {
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--blue), #315f97);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    padding: 9px 14px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
   .hero-glow {
     position: absolute;
     top: -200px;
@@ -318,6 +351,7 @@ const pageStyles = `
 
   @media (max-width: 600px) {
     .kasi-nav { padding: 14px 20px; }
+    .free-offer { margin-top: 78px; }
     .hero { padding: 100px 20px 60px; }
     .stats-bar { grid-template-columns: repeat(2, minmax(120px, 1fr)); padding: 16px 16px 60px; }
     .stat-item { min-height: 160px; }
@@ -361,6 +395,19 @@ export default function Homepage() {
           Chat Now
         </a>
       </nav>
+      <div className="free-offer">
+        <div>
+          We now offer <strong>2 free CV builds per day</strong> for early
+          users.
+        </div>
+        <a
+          href="https://ai.studio/apps/03036169-3b54-4a7d-88ed-a879f303fc12"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Claim your free CV spot
+        </a>
+      </div>
 
       <section className="hero">
         <div className="hero-glow" />
