@@ -1,182 +1,110 @@
-import {defer, type LoaderFunctionArgs} from '@netlify/remix-runtime';
-import {Await, useLoaderData, Link, type MetaFunction} from '@remix-run/react';
-import {Suspense} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
-import type {
-  FeaturedCollectionFragment,
-  RecommendedProductsQuery,
-} from 'storefrontapi.generated';
+import {type MetaFunction} from '@remix-run/react';
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [
+    {title: 'Kasi First | AI CV Builder for Android'},
+    {
+      name: 'description',
+      content:
+        'Kasi First is a mobile-first CV builder inspired by vibe.cv and tailored for Android users.',
+    },
+  ];
 };
 
-export async function loader(args: LoaderFunctionArgs) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
+const templates = [
+  {name: 'Metro Pro', tone: 'Clean and recruiter-friendly', rating: '4.9'},
+  {
+    name: 'Creator Bold',
+    tone: 'Great for portfolios and media roles',
+    rating: '4.8',
+  },
+  {name: 'Tech ATS+', tone: 'Optimized for ATS scans', rating: '5.0'},
+];
 
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
+const jobs = [
+  {
+    title: 'Customer Success Manager',
+    company: 'NovaPay',
+    match: '92% match',
+    salary: '$80k - $100k',
+  },
+  {
+    title: 'Junior Android Developer',
+    company: 'Blue Orbit Labs',
+    match: '88% match',
+    salary: '$70k - $90k',
+  },
+];
 
-  return defer({...deferredData, ...criticalData});
-}
-
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- */
-async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [{collections}] = await Promise.all([
-    context.storefront.query(FEATURED_COLLECTION_QUERY),
-    // Add other queries here, so that they are loaded in parallel
-  ]);
-
-  return {
-    featuredCollection: collections.nodes[0],
-  };
-}
-
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- */
-function loadDeferredData({context}: LoaderFunctionArgs) {
-  const recommendedProducts = context.storefront
-    .query(RECOMMENDED_PRODUCTS_QUERY)
-    .catch((error) => {
-      // Log query errors, but don't throw them so the page can still render
-      console.error(error);
-      return null;
-    });
-
-  return {
-    recommendedProducts,
-  };
-}
-
-export default function Homepage() {
-  const data = useLoaderData<typeof loader>();
+export default function HomePage() {
   return (
-    <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
-    </div>
+    <main className="kasi-app">
+      <section className="kasi-phone-shell">
+        <header className="kasi-hero">
+          <div className="kasi-brandmark" aria-hidden>
+            <span className="kasi-crown">♛</span>
+            <span className="kasi-wordmark">KASI FIRST.</span>
+          </div>
+          <p className="kasi-tagline">Your AI-powered CV studio for Android.</p>
+          <button className="kasi-primary">Start Free CV</button>
+        </header>
+
+        <section className="kasi-card">
+          <h2>Build your CV in 3 steps</h2>
+          <ol>
+            <li>Paste your experience or upload a current CV.</li>
+            <li>Pick a template and tone.</li>
+            <li>Download PDF or share as a smart link.</li>
+          </ol>
+        </section>
+
+        <section className="kasi-card">
+          <h2>Template picks</h2>
+          <div className="kasi-template-grid">
+            {templates.map((template) => (
+              <article key={template.name} className="kasi-template-item">
+                <h3>{template.name}</h3>
+                <p>{template.tone}</p>
+                <small>{template.rating} ★</small>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="kasi-card">
+          <h2>AI job matching</h2>
+          <div className="kasi-job-list">
+            {jobs.map((job) => (
+              <article key={job.title} className="kasi-job-item">
+                <div>
+                  <h3>{job.title}</h3>
+                  <p>{job.company}</p>
+                </div>
+                <div>
+                  <strong>{job.match}</strong>
+                  <p>{job.salary}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="kasi-card kasi-download-card">
+          <h2>Ready for Android launch</h2>
+          <p>
+            This UI is mobile-first and can be wrapped with Capacitor for a Play
+            Store build.
+          </p>
+          <button className="kasi-primary">Export APK Setup Guide</button>
+        </section>
+
+        <nav className="kasi-bottom-nav" aria-label="Main">
+          <span>Home</span>
+          <span>Templates</span>
+          <span>Jobs</span>
+          <span>Profile</span>
+        </nav>
+      </section>
+    </main>
   );
 }
-
-function FeaturedCollection({
-  collection,
-}: {
-  collection: FeaturedCollectionFragment;
-}) {
-  if (!collection) return null;
-  const image = collection?.image;
-  return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
-  );
-}
-
-function RecommendedProducts({
-  products,
-}: {
-  products: Promise<RecommendedProductsQuery | null>;
-}) {
-  return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={products}>
-          {(response) => (
-            <div className="recommended-products-grid">
-              {response
-                ? response.products.nodes.map((product) => (
-                    <Link
-                      key={product.id}
-                      className="recommended-product"
-                      to={`/products/${product.handle}`}
-                    >
-                      <Image
-                        data={product.images.nodes[0]}
-                        aspectRatio="1/1"
-                        sizes="(min-width: 45em) 20vw, 50vw"
-                      />
-                      <h4>{product.title}</h4>
-                      <small>
-                        <Money data={product.priceRange.minVariantPrice} />
-                      </small>
-                    </Link>
-                  ))
-                : null}
-            </div>
-          )}
-        </Await>
-      </Suspense>
-      <br />
-    </div>
-  );
-}
-
-const FEATURED_COLLECTION_QUERY = `#graphql
-  fragment FeaturedCollection on Collection {
-    id
-    title
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-    handle
-  }
-  query FeaturedCollection($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...FeaturedCollection
-      }
-    }
-  }
-` as const;
-
-const RECOMMENDED_PRODUCTS_QUERY = `#graphql
-  fragment RecommendedProduct on Product {
-    id
-    title
-    handle
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-    images(first: 1) {
-      nodes {
-        id
-        url
-        altText
-        width
-        height
-      }
-    }
-  }
-  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...RecommendedProduct
-      }
-    }
-  }
-` as const;
