@@ -1,0 +1,14 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">KASI FIRST logo</title>
+  <desc id="desc">Crown icon over KASI FIRST text in blue with orange dot and red accent.</desc>
+
+  <path d="M330 186L365 292L411 244L444 118L497 264L545 151L563 279" stroke="#F05B4F" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M340 324C395 286 451 266 504 271C529 273 548 280 557 297C566 313 557 330 536 338C482 359 423 357 359 338" stroke="#F05B4F" stroke-width="12" stroke-linecap="round"/>
+
+  <text x="450" y="474" text-anchor="middle" font-size="170" font-weight="700" fill="#3D7CC6" font-family="Arial, Helvetica, sans-serif" letter-spacing="4">KASI</text>
+  <text x="450" y="645" text-anchor="middle" font-size="170" font-weight="700" fill="#3D7CC6" font-family="Arial, Helvetica, sans-serif" letter-spacing="4">FIRST</text>
+
+  <ellipse cx="340" cy="528" rx="16" ry="30" fill="#F05B4F"/>
+  <ellipse cx="358" cy="528" rx="16" ry="30" fill="#F05B4F"/>
+  <circle cx="643" cy="615" r="18" fill="#F5A623"/>
+</svg>
