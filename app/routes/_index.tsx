@@ -1,5 +1,5 @@
 import {type MetaFunction} from '@remix-run/react';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
 export const meta: MetaFunction = () => {
   return [{title: 'KASI FIRST — Job Hunters'}];
@@ -172,15 +172,25 @@ const pageStyles = `
   }
 
   .stats-bar, .section { z-index: 1; position: relative; }
-  .stats-bar { display: flex; justify-content: center; flex-wrap: wrap; padding: 0 24px 80px; }
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 16px;
+    padding: 16px 24px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
   .stat-item {
-    flex: 1;
-    min-width: 180px;
-    max-width: 260px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(61, 124, 198, 0.18);
+    border-radius: 14px;
     text-align: center;
-    padding: 32px 24px;
-    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 28px 18px;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .stat-number { font-size: 52px; color: var(--blue-light); }
@@ -284,78 +294,39 @@ const pageStyles = `
     color: var(--muted);
   }
 
+  .wa-float {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 999;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #4ea1ff, #2b74d8);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 10px 22px rgba(25, 85, 170, 0.45);
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 26px;
+  }
+
   .fade-up { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
   @media (max-width: 600px) {
     .kasi-nav { padding: 14px 20px; }
     .hero { padding: 100px 20px 60px; }
-    .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); min-width: 140px; }
+    .stats-bar { grid-template-columns: repeat(2, minmax(120px, 1fr)); padding: 16px 16px 60px; }
+    .stat-item { min-height: 160px; }
     .section { padding: 60px 20px; }
     .kasi-footer { flex-direction: column; text-align: center; }
-  }
-
-  .talk-helper {
-    position: fixed;
-    left: 20px;
-    bottom: 24px;
-    z-index: 999;
-    width: min(340px, calc(100vw - 40px));
-    background: rgba(10, 16, 27, 0.96);
-    border: 1px solid rgba(61, 124, 198, 0.45);
-    border-radius: 14px;
-    padding: 14px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-  }
-
-  .talk-helper h4 {
-    margin: 0 0 8px;
-    color: var(--blue-light);
-    font-size: 14px;
-    letter-spacing: 0.5px;
-  }
-
-  .talk-helper p {
-    margin: 0 0 10px;
-    color: #c8d8ed;
-    font-size: 12px;
-    line-height: 1.4;
-  }
-
-  .talk-controls {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-  }
-
-  .talk-controls input {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(61, 124, 198, 0.35);
-    color: #fff;
-    border-radius: 10px;
-    padding: 9px 11px;
-  }
-
-  .talk-controls button {
-    border: 0;
-    border-radius: 10px;
-    padding: 9px 12px;
-    font-weight: 700;
-    cursor: pointer;
-    background: linear-gradient(135deg, var(--blue), #315f97);
-    color: white;
   }
 `;
 
 export default function Homepage() {
-  const [helperInput, setHelperInput] = useState(
-    'How can I start job hunting with KASI FIRST?',
-  );
-  const [helperReply, setHelperReply] = useState(
-    'Tap ask and I will answer and speak the response for you.',
-  );
-  const [isTalking, setIsTalking] = useState(false);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -373,37 +344,6 @@ export default function Homepage() {
 
     return () => observer.disconnect();
   }, []);
-
-  async function askHelper() {
-    if (!helperInput.trim()) return;
-    setIsTalking(true);
-    try {
-      const response = await fetch('/api/talk-helper', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({message: helperInput}),
-      });
-      const data = (await response.json()) as {reply?: string};
-      const reply =
-        data.reply ??
-        'Please WhatsApp us now and we will begin with your CV and job applications immediately.';
-      setHelperReply(reply);
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(reply);
-        utter.rate = 1;
-        utter.pitch = 1;
-        window.speechSynthesis.speak(utter);
-      }
-    } catch (error) {
-      setHelperReply(
-        'I could not reach the assistant right now. Please use the WhatsApp button to continue.',
-      );
-    } finally {
-      setIsTalking(false);
-    }
-  }
-
   return (
     <main className="kasi-page">
       <style>{pageStyles}</style>
@@ -668,21 +608,15 @@ export default function Homepage() {
         <div>KASI FIRST</div>
         <div>© 2025 KASI FIRST Job Solutions · East Rand, Johannesburg</div>
       </footer>
-
-      <div className="talk-helper">
-        <h4>Talking Helper</h4>
-        <p>{helperReply}</p>
-        <div className="talk-controls">
-          <input
-            value={helperInput}
-            onChange={(event) => setHelperInput(event.target.value)}
-            placeholder="Ask about prices, packages, or how to start"
-          />
-          <button type="button" onClick={askHelper} disabled={isTalking}>
-            {isTalking ? '...' : 'Ask'}
-          </button>
-        </div>
-      </div>
+      <a
+        className="wa-float"
+        href="https://wa.me/27849640891?text=Hi%20KASI%20FIRST,%20I%20need%20help%20finding%20a%20job!"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Open WhatsApp chat"
+      >
+        W
+      </a>
     </main>
   );
 }
