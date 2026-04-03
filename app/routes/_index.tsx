@@ -103,7 +103,7 @@ export default function Homepage() {
           <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
             <KasiFirstLogo className="h-14 w-24 md:h-16 md:w-28" />
             <a
-              href="/pages/cv-builder"
+              href="https://ai.studio/apps/15ca8ca7-8551-4fc5-9303-b6fc04ed0ab5?fullscreenApplet=true"
               className="rounded-lg bg-primary-container px-4 py-2 text-sm font-bold text-on-primary hover:opacity-90"
             >
               Create CV
@@ -123,13 +123,13 @@ export default function Homepage() {
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <a
-                  href="/pages/cv-builder"
+                  href="https://ai.studio/apps/15ca8ca7-8551-4fc5-9303-b6fc04ed0ab5?fullscreenApplet=true"
                   className="rounded-lg bg-primary-container px-7 py-4 text-center text-lg font-bold text-on-primary shadow"
                 >
                   Create My CV Now
                 </a>
                 <a
-                  href="https://wa.me/27600000000"
+                  href="https://wa.me/27849640891"
                   className="rounded-lg border border-outline-variant bg-white px-7 py-4 text-center text-lg font-bold text-[#25D366]"
                 >
                   Chat on WhatsApp
@@ -230,7 +230,7 @@ export default function Homepage() {
               interview-ready.
             </p>
             <a
-              href="/pages/cv-builder"
+              href="https://ai.studio/apps/15ca8ca7-8551-4fc5-9303-b6fc04ed0ab5?fullscreenApplet=true"
               className="mt-8 inline-block rounded-lg bg-white px-10 py-4 text-lg font-bold text-primary"
             >
               Build My CV Now
@@ -257,7 +257,7 @@ export default function Homepage() {
                 Terms of Service
               </a>
               <a
-                href="https://wa.me/27600000000"
+                href="https://wa.me/27849640891"
                 className="hover:text-primary"
               >
                 WhatsApp Support
@@ -271,7 +271,7 @@ export default function Homepage() {
 
         <a
           className="fixed bottom-6 right-6 z-50 rounded-full bg-[#25D366] p-4 text-white shadow-2xl"
-          href="https://wa.me/27600000000"
+          href="https://wa.me/27849640891"
           aria-label="Open WhatsApp support"
         >
           WA
