@@ -38,42 +38,50 @@ function KasiFirstLogo({className = 'h-14 w-40'}: {className?: string}) {
   return (
     <svg
       className={className}
-      viewBox="0 0 320 140"
+      viewBox="0 0 320 220"
       role="img"
       aria-label="KASI FIRST logo"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M132 12l18 30 12-24 19 38 2-34"
+      <g
         fill="none"
         stroke="#ef5349"
-        strokeWidth="7"
+        strokeWidth="8"
         strokeLinecap="round"
         strokeLinejoin="round"
-      />
-      <path
-        d="M116 31l16 66c23-20 42-34 66-43 20-8 39-8 50-1 14 8 13 25-3 36-16 11-44 15-75 9"
-        fill="none"
-        stroke="#ef5349"
-        strokeWidth="7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      >
+        <path d="M146 20l18 31 13-25 20 40 2-36" />
+        <path d="M129 40l15 67c22-21 42-35 67-44 20-7 39-7 50 0 14 8 13 25-3 36-17 11-46 14-78 8" />
+      </g>
+
       <text
-        x="50"
-        y="118"
-        fontSize="58"
+        x="54"
+        y="148"
+        fontSize="68"
         fontWeight="900"
         fill="#2c5ca8"
         style={{letterSpacing: '2px'}}
       >
-        KASI FIRST
+        KASI
       </text>
+
       <path
-        d="M150 101c-4 7-6 12-5 16 1 7 8 10 13 6 4-3 5-8 4-13-1-4-4-8-7-9-2 2-3 3-5 6z"
+        d="M150 152c-4 8-5 13-4 18 1 6 8 9 12 6 4-3 6-8 5-13-1-4-4-8-8-11-2 2-3 3-5 6z"
         fill="#ef5349"
       />
-      <circle cx="284" cy="114" r="7" fill="#e6bc53" />
+
+      <text
+        x="54"
+        y="214"
+        fontSize="68"
+        fontWeight="900"
+        fill="#2c5ca8"
+        style={{letterSpacing: '2px'}}
+      >
+        FIRST
+      </text>
+
+      <circle cx="278" cy="194" r="9" fill="#e6bc53" />
     </svg>
   );
 }
@@ -93,7 +101,7 @@ export default function Homepage() {
       <div className="bg-surface font-body text-on-surface">
         <header className="sticky top-0 z-50 border-b border-outline-variant bg-surface/95 backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
-            <KasiFirstLogo className="h-12 w-36 md:h-14 md:w-44" />
+            <KasiFirstLogo className="h-14 w-24 md:h-16 md:w-28" />
             <a
               href="/pages/cv-builder"
               className="rounded-lg bg-primary-container px-4 py-2 text-sm font-bold text-on-primary hover:opacity-90"
@@ -233,7 +241,7 @@ export default function Homepage() {
         <footer className="bg-surface-container-low px-4 py-10 md:px-6">
           <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
             <div>
-              <KasiFirstLogo className="h-16 w-48" />
+              <KasiFirstLogo className="h-24 w-36" />
               <p className="mt-3 max-w-md text-sm text-on-surface-variant">
                 © 2026 KASI FIRST. Built for South African job seekers.
               </p>
