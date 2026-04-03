@@ -10,583 +10,264 @@ const tailwindConfig = `
     theme: {
       extend: {
         colors: {
-          error: '#ba1a1a',
-          'on-secondary-container': '#fffbff',
-          secondary: '#b61722',
-          'primary-fixed': '#dce1ff',
-          'surface-bright': '#fbf8ff',
-          'outline-variant': '#c4c5d7',
-          'on-background': '#1a1b22',
-          'on-surface': '#1a1b22',
-          'surface-container-highest': '#e3e1eb',
-          'on-secondary-fixed-variant': '#930013',
-          'inverse-on-surface': '#f1f0f9',
-          'on-error-container': '#93000a',
-          'tertiary-container': '#9a4200',
-          'surface-tint': '#2151da',
-          surface: '#fbf8ff',
-          'on-primary-fixed': '#001551',
-          'on-surface-variant': '#434655',
-          'error-container': '#ffdad6',
-          'on-primary-container': '#cad3ff',
           primary: '#0037b0',
-          'secondary-fixed': '#ffdad7',
-          'on-secondary': '#ffffff',
-          'on-tertiary-fixed': '#341100',
-          'inverse-primary': '#b7c4ff',
-          'surface-container-high': '#e9e7f0',
-          'on-primary-fixed-variant': '#0039b5',
-          'surface-dim': '#dad9e2',
-          'primary-fixed-dim': '#b7c4ff',
-          'inverse-surface': '#2f3037',
-          'on-tertiary-fixed-variant': '#783200',
-          'secondary-fixed-dim': '#ffb3ae',
+          secondary: '#b61722',
+          tertiary: '#753000',
           'primary-container': '#1d4ed8',
           'on-primary': '#ffffff',
-          tertiary: '#753000',
-          'on-secondary-fixed': '#410004',
-          background: '#fbf8ff',
-          'on-error': '#ffffff',
+          'on-primary-container': '#cad3ff',
+          surface: '#fbf8ff',
           'surface-container-low': '#f4f2fc',
-          'tertiary-fixed': '#ffdbca',
-          'surface-variant': '#e3e1eb',
-          'on-tertiary': '#ffffff',
-          outline: '#747686',
           'surface-container': '#eeedf6',
-          'tertiary-fixed-dim': '#ffb690',
           'surface-container-lowest': '#ffffff',
-          'on-tertiary-container': '#ffcab0',
-          'secondary-container': '#da3437'
-        },
-        borderRadius: {
-          DEFAULT: '0.125rem',
-          lg: '4px',
-          xl: '4px',
-          full: '0.75rem'
+          'on-surface': '#1a1b22',
+          'on-surface-variant': '#434655',
+          'outline-variant': '#c4c5d7',
         },
         fontFamily: {
           headline: ['Plus Jakarta Sans'],
           body: ['Plus Jakarta Sans'],
-          label: ['Plus Jakarta Sans']
-        }
-      }
-    }
+          label: ['Plus Jakarta Sans'],
+        },
+      },
+    },
   };
 `;
+
+function KasiFirstLogo({className = 'h-14 w-40'}: {className?: string}) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 320 140"
+      role="img"
+      aria-label="KASI FIRST logo"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M132 12l18 30 12-24 19 38 2-34"
+        fill="none"
+        stroke="#ef5349"
+        strokeWidth="7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M116 31l16 66c23-20 42-34 66-43 20-8 39-8 50-1 14 8 13 25-3 36-16 11-44 15-75 9"
+        fill="none"
+        stroke="#ef5349"
+        strokeWidth="7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <text
+        x="50"
+        y="118"
+        fontSize="58"
+        fontWeight="900"
+        fill="#2c5ca8"
+        style={{letterSpacing: '2px'}}
+      >
+        KASI FIRST
+      </text>
+      <path
+        d="M150 101c-4 7-6 12-5 16 1 7 8 10 13 6 4-3 5-8 4-13-1-4-4-8-7-9-2 2-3 3-5 6z"
+        fill="#ef5349"
+      />
+      <circle cx="284" cy="114" r="7" fill="#e6bc53" />
+    </svg>
+  );
+}
 
 export default function Homepage() {
   return (
     <>
-      <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" />
+      <script src="https://cdn.tailwindcss.com?plugins=forms" />
       <script
         id="tailwind-config"
         dangerouslySetInnerHTML={{__html: tailwindConfig}}
       />
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
       />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      />
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-            .material-symbols-outlined {
-              font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            }
-            body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: max(884px, 100dvh); }
-          `,
-        }}
-      />
-
-      <div className="bg-surface text-on-surface">
-        <header className="docked sticky top-0 z-50 w-full bg-[#fbf8ff] shadow-sm dark:bg-slate-950 dark:shadow-none">
-          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4">
-            <div className="flex items-center gap-2">
-              <div className="flex flex-col items-center">
-                <span
-                  className="material-symbols-outlined text-sm leading-none text-secondary"
-                  style={{fontVariationSettings: "'FILL' 1"}}
-                >
-                  king_bed
-                </span>
-                <div className="font-headline flex items-baseline text-xl font-black uppercase tracking-tighter text-[#0037b0] dark:text-blue-500">
-                  KASI F
-                  <span className="relative">
-                    I
-                    <span
-                      className="material-symbols-outlined absolute -top-1 left-0 text-[10px] text-secondary"
-                      style={{fontVariationSettings: "'FILL' 1"}}
-                    >
-                      local_fire_department
-                    </span>
-                  </span>
-                  RST<span className="text-tertiary">.</span>
-                </div>
-              </div>
-            </div>
-            <button className="rounded-lg bg-primary-container px-4 py-2 font-label text-sm font-bold text-on-primary transition-all hover:bg-blue-700">
+      <div className="bg-surface font-body text-on-surface">
+        <header className="sticky top-0 z-50 border-b border-outline-variant bg-surface/95 backdrop-blur">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
+            <KasiFirstLogo className="h-12 w-36 md:h-14 md:w-44" />
+            <a
+              href="/pages/cv-builder"
+              className="rounded-lg bg-primary-container px-4 py-2 text-sm font-bold text-on-primary hover:opacity-90"
+            >
               Create CV
-            </button>
+            </a>
           </div>
-          <div className="h-[1px] w-full bg-[#f4f2fc] dark:bg-slate-900" />
         </header>
 
-        <section className="mx-auto flex max-w-7xl flex-col items-center gap-12 px-6 py-12 md:flex-row md:py-24">
-          <div className="flex-1 space-y-8">
-            <h1 className="font-headline text-4xl font-extrabold leading-tight tracking-tight text-on-surface md:text-6xl">
-              Create a Professional CV in Minutes –{' '}
-              <span className="text-primary">No Experience Needed</span>
-            </h1>
-            <p className="text-lg leading-relaxed text-on-surface-variant md:text-xl">
-              Our AI helps you build a clean, job-winning CV fast. Perfect for
-              first-time job seekers in South Africa.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <button className="rounded-lg bg-primary-container px-8 py-4 text-lg font-bold text-on-primary shadow-lg transition-all hover:opacity-90">
-                Create My CV Now
-              </button>
-              <a
-                href="https://wa.me/27600000000"
-                className="flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-white px-8 py-4 text-lg font-bold text-[#25D366] transition-all hover:bg-gray-50"
-              >
-                <span
-                  className="material-symbols-outlined"
-                  style={{fontVariationSettings: "'FILL' 1"}}
+        <main>
+          <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2 md:items-center md:px-6 md:py-20">
+            <div className="space-y-6">
+              <h1 className="font-headline text-4xl font-black leading-tight md:text-6xl">
+                Create a Professional CV in Minutes
+              </h1>
+              <p className="text-lg text-on-surface-variant md:text-xl">
+                AI-powered CV writing built for South African job seekers. No
+                design skills, no laptop, no stress.
+              </p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="/pages/cv-builder"
+                  className="rounded-lg bg-primary-container px-7 py-4 text-center text-lg font-bold text-on-primary shadow"
                 >
-                  chat
-                </span>
-                Chat on WhatsApp
-              </a>
-            </div>
-          </div>
-          <div className="relative w-full flex-1">
-            <div className="relative overflow-hidden rounded-xl bg-surface-container-low p-4 shadow-2xl">
-              <img
-                className="h-auto w-full rounded-lg object-cover"
-                alt="Modern clean professional CV template mockup"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz7t7OgkL2TMd3W7qTnqwQnaEN0HiGPIfv9wOhifBB1I03W9iEfVYQszub_pXUrLG6alBBN7H2uoWishgqrgRvBvqL1BpCL-TIzk91AG5we0IXZs8VG4Lsesa0WD99EWNN5kVaSNR_8oYoToWxC0KTDjHea7T_hKPE-HLwYpPG3_Xsu9nCEFgTTwsLueWIz78Dw8MAbbLVUYW2Lf-SFu664i6PRi5fEcDA3JdchTHcpbaIuiyhbID9s3kFh0C1zQeTEVSDDHKpN6w"
-              />
-              <div className="absolute bottom-8 right-8 flex items-center gap-2 rounded-lg bg-tertiary-container px-4 py-2 font-bold text-on-tertiary shadow-xl">
-                <span className="material-symbols-outlined">bolt</span> AI
-                Powered
+                  Create My CV Now
+                </a>
+                <a
+                  href="https://wa.me/27600000000"
+                  className="rounded-lg border border-outline-variant bg-white px-7 py-4 text-center text-lg font-bold text-[#25D366]"
+                >
+                  Chat on WhatsApp
+                </a>
+              </div>
+              <div className="rounded-lg bg-surface-container p-4">
+                <p className="text-sm font-semibold text-on-surface">
+                  ✅ ATS-friendly templates · ✅ Download PDF instantly · ✅
+                  Phone-first
+                </p>
               </div>
             </div>
-          </div>
-        </section>
 
-        <section className="bg-surface-container-low px-6 py-16">
-          <div className="mx-auto max-w-4xl">
-            <h2 className="mb-12 text-center font-headline text-3xl font-bold">
-              Struggling to Get a Job?
-            </h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {[
-                'No CV or a poorly formatted one that employers ignore.',
-                'Don’t know how to describe your skills or what to write.',
-                'No access to a computer or expensive office software.',
-                'Applying to hundreds of jobs but never getting an interview.',
-              ].map((copy, idx) => (
-                <div
-                  key={copy}
-                  className="flex items-start gap-4 rounded-lg border-l-4 border-secondary bg-surface-container-lowest p-6 shadow-sm"
-                >
-                  <span className="material-symbols-outlined text-secondary">
-                    {
-                      [
-                        'sentiment_dissatisfied',
-                        'edit_off',
-                        'phonelink_erase',
-                        'mail_lock',
-                      ][idx]
-                    }
-                  </span>
-                  <p className="font-medium">{copy}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-6 py-16 text-center">
-          <h2 className="mb-16 font-headline text-3xl font-bold">
-            We Fix That with AI
-          </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-            {[
-              [
-                'psychology',
-                'text-primary',
-                'bg-primary/10',
-                'AI builds your CV',
-                'Just answer simple questions and let AI do the writing.',
-              ],
-              [
-                'smartphone',
-                'text-tertiary',
-                'bg-tertiary/10',
-                'Works on phone',
-                'Complete your entire profile using just your mobile browser.',
-              ],
-              [
-                'timer',
-                'text-secondary',
-                'bg-secondary/10',
-                'Under 5 mins',
-                'Go from zero to a professional PDF in record time.',
-              ],
-              [
-                'verified_user',
-                'text-primary',
-                'bg-primary/10',
-                'No skills needed',
-                'No design or professional writing experience required.',
-              ],
-            ].map(([icon, textColor, bgColor, title, desc]) => (
-              <div key={String(title)} className="space-y-4">
-                <div
-                  className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full ${bgColor}`}
-                >
-                  <span
-                    className={`material-symbols-outlined text-3xl ${textColor}`}
-                  >
-                    {icon}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold">{title}</h3>
-                <p className="text-on-surface-variant">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="bg-surface-container-low px-6 py-20">
-          <div className="mx-auto max-w-5xl">
-            <h2 className="mb-16 text-center font-headline text-3xl font-bold">
-              3 Simple Steps to Your New Job
-            </h2>
-            <div className="relative grid grid-cols-1 gap-12 md:grid-cols-3">
-              <div className="absolute left-0 top-1/4 -z-0 hidden h-[2px] w-full bg-tertiary-fixed-dim md:block" />
-              {[
-                [
-                  '1',
-                  'Enter details',
-                  'Fill in your basic info and work history (even informal jobs).',
-                ],
-                [
-                  '2',
-                  'AI creates CV',
-                  'Our AI formats and writes professional bullet points for you.',
-                ],
-                [
-                  '3',
-                  'Download & Apply',
-                  'Get your PDF immediately and start applying to vacancies.',
-                ],
-              ].map(([step, title, desc]) => (
-                <div
-                  key={String(step)}
-                  className="relative z-10 rounded-lg bg-surface-container-lowest p-8 text-center shadow-sm"
-                >
-                  <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary text-xl font-bold text-on-tertiary">
-                    {step}
-                  </div>
-                  <h4 className="mb-4 font-bold">{title}</h4>
-                  <p className="text-sm text-on-surface-variant">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
-            <img
-              className="order-2 rounded-xl shadow-lg md:order-1"
-              alt="Recruiters reviewing resumes in an office"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6W1CGq9S5n0q8QYuYlAtbOxWp9nKfqJSTxuoaD3NGUnFqjKMHir2gWS-5uR-DulSh416Tux6vNpB_qWYJcjerdp1HdeXKCqmcVjlQy0hryeQp-Vob8mcgbh5_dMFciLK_0rWjAIx5zdtNovRi6wyGb2LRw1yuy7cC3CqTXQvfWLFrNobSQhEJ7EFND0BjxkE6WiNKDk_y8ITJ0R1V7x1LItrOcUC2ZFgplxDKQu12h-oX9v5LJP8024oZTuRzclatRXk0hAivDjg"
-            />
-            <div className="order-1 space-y-8 md:order-2">
-              <h2 className="font-headline text-3xl font-bold">
-                Everything You Need to Succeed
+            <div className="rounded-2xl border border-outline-variant bg-surface-container-low p-8 shadow-sm">
+              <h2 className="mb-4 text-2xl font-extrabold text-primary">
+                Start in 3 Steps
               </h2>
-              <div className="space-y-6">
+              <ol className="space-y-4 text-on-surface-variant">
+                <li className="rounded-lg bg-white p-4">
+                  <span className="font-bold text-on-surface">1.</span> Fill in
+                  your info.
+                </li>
+                <li className="rounded-lg bg-white p-4">
+                  <span className="font-bold text-on-surface">2.</span> AI
+                  writes and formats your CV.
+                </li>
+                <li className="rounded-lg bg-white p-4">
+                  <span className="font-bold text-on-surface">3.</span> Download
+                  and apply immediately.
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <section className="bg-surface-container-low px-4 py-14 md:px-6">
+            <div className="mx-auto max-w-6xl">
+              <h2 className="mb-8 text-center text-3xl font-black">
+                Why KASI FIRST works
+              </h2>
+              <div className="grid gap-4 md:grid-cols-2">
                 {[
-                  [
-                    'style',
-                    'Professional templates',
-                    'Modern, clean designs that recruiters in SA actually love.',
-                  ],
-                  [
-                    'robot_2',
-                    'ATS-friendly',
-                    'Designed to pass through automated hiring systems easily.',
-                  ],
-                  [
-                    'picture_as_pdf',
-                    'Instant PDF',
-                    'Download and share your CV via WhatsApp or Email instantly.',
-                  ],
-                  [
-                    'support_agent',
-                    'WhatsApp support',
-                    'Need help? Chat with our local support team anytime.',
-                  ],
-                ].map(([icon, title, desc]) => (
-                  <div key={String(title)} className="flex gap-4">
-                    <span className="material-symbols-outlined text-primary">
-                      {icon}
-                    </span>
-                    <div>
-                      <h4 className="font-bold">{title}</h4>
-                      <p className="text-on-surface-variant">{desc}</p>
-                    </div>
+                  'No CV or poor formatting that gets ignored.',
+                  'No idea what to write in your experience section.',
+                  'No access to expensive software or a laptop.',
+                  'No interviews after many applications.',
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-lg border-l-4 border-secondary bg-white p-5 font-medium"
+                  >
+                    {item}
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="bg-surface-container px-6 py-20">
-          <div className="mx-auto max-w-7xl">
-            <h2 className="mb-16 text-center font-headline text-3xl font-bold">
-              Success Stories from the Kasi
+          <section className="mx-auto max-w-6xl px-4 py-14 md:px-6">
+            <h2 className="mb-10 text-center text-3xl font-black">
+              Simple Pricing
             </h2>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              {[
-                [
-                  'TM',
-                  'Thandi M.',
-                  'Gauteng',
-                  "I didn't have a computer. KASI FIRST let me do everything on my phone. I got 3 interviews in one week!",
-                ],
-                [
-                  'JS',
-                  'Jabulani S.',
-                  'KZN',
-                  'The AI actually knew how to describe my casual work experience to sound professional. Best R29 I ever spent.',
-                ],
-                [
-                  'SK',
-                  'Sipho K.',
-                  'Western Cape',
-                  "Clear, simple and very fast. I've recommended this to all my friends who are looking for work.",
-                ],
-              ].map(([initials, name, location, quote]) => (
-                <div
-                  key={String(name)}
-                  className="rounded-lg border-t-4 border-tertiary bg-surface-container-lowest p-8 shadow-sm"
-                >
-                  <div className="mb-6 flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 font-bold text-primary">
-                      {initials}
-                    </div>
-                    <div>
-                      <h5 className="font-bold">{name}</h5>
-                      <p className="text-xs text-on-surface-variant">
-                        {location}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="italic text-on-surface-variant">
-                    &quot;{quote}&quot;
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-5xl px-6 py-20">
-          <h2 className="mb-16 text-center font-headline text-3xl font-bold">
-            Simple Pricing for Everyone
-          </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            <div className="flex flex-col items-center rounded-lg border border-outline-variant p-8">
-              <h4 className="mb-2 font-bold">Free Basic</h4>
-              <div className="mb-6 text-3xl font-black">R0</div>
-              <ul className="mb-8 space-y-4 text-center text-sm">
-                <li>1 Basic Template</li>
-                <li>Online Profile</li>
-                <li>Limited AI Suggestions</li>
-              </ul>
-              <button className="mt-auto w-full rounded-lg border border-primary py-3 font-bold text-primary">
-                Choose Basic
-              </button>
-            </div>
-            <div className="relative flex scale-105 transform flex-col items-center overflow-hidden rounded-lg bg-primary-container p-8 text-on-primary shadow-2xl">
-              <div className="absolute right-4 top-4 rounded bg-tertiary px-2 py-1 text-[10px] font-bold uppercase">
-                Popular
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="rounded-lg border border-outline-variant bg-white p-6 text-center">
+                <h3 className="font-bold">Free Basic</h3>
+                <p className="my-3 text-3xl font-black">R0</p>
+                <ul className="space-y-2 text-sm text-on-surface-variant">
+                  <li>1 Basic Template</li>
+                  <li>Limited AI Help</li>
+                </ul>
               </div>
-              <h4 className="mb-2 font-bold">Pro CV</h4>
-              <div className="mb-1 text-3xl font-black">R29 - R59</div>
-              <p className="mb-6 text-[10px] opacity-80">
-                Depending on features
-              </p>
-              <ul className="mb-8 space-y-4 text-center text-sm">
-                <li>All Premium Templates</li>
-                <li>Full AI CV Writing</li>
-                <li>Unlimited PDF Downloads</li>
-                <li>Cover Letter Builder</li>
-              </ul>
-              <button className="mt-auto w-full rounded-lg bg-white py-3 font-bold text-primary-container">
-                Upgrade to Pro
-              </button>
+              <div className="rounded-lg bg-primary-container p-6 text-center text-on-primary shadow-lg">
+                <p className="text-xs font-bold uppercase">Most Popular</p>
+                <h3 className="mt-1 font-bold">Pro CV</h3>
+                <p className="my-3 text-3xl font-black">R29 - R59</p>
+                <ul className="space-y-2 text-sm">
+                  <li>Full AI CV Writing</li>
+                  <li>Premium Templates</li>
+                  <li>Unlimited PDF Downloads</li>
+                </ul>
+              </div>
+              <div className="rounded-lg border border-outline-variant bg-white p-6 text-center">
+                <h3 className="font-bold">Expert Help</h3>
+                <p className="my-3 text-3xl font-black">Custom</p>
+                <ul className="space-y-2 text-sm text-on-surface-variant">
+                  <li>1-on-1 Review</li>
+                  <li>Interview Coaching</li>
+                </ul>
+              </div>
             </div>
-            <div className="flex flex-col items-center rounded-lg border border-outline-variant p-8">
-              <h4 className="mb-2 font-bold">Expert Help</h4>
-              <div className="mb-6 text-3xl font-black">Custom</div>
-              <ul className="mb-8 space-y-4 text-center text-sm">
-                <li>1-on-1 Review</li>
-                <li>Interview Coaching</li>
-                <li>LinkedIn Optimization</li>
-              </ul>
-              <button className="mt-auto w-full rounded-lg border border-primary py-3 font-bold text-primary">
-                Contact Us
-              </button>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="bg-primary px-6 py-20 text-center text-on-primary">
-          <div className="mx-auto max-w-3xl space-y-8">
-            <h2 className="font-headline text-3xl font-black leading-tight md:text-5xl">
+          <section className="bg-primary px-4 py-16 text-center text-on-primary md:px-6">
+            <h2 className="mx-auto max-w-3xl text-3xl font-black md:text-5xl">
               Start Now – Get Your CV Today
             </h2>
-            <p className="text-lg opacity-90">
-              Don&apos;t let another job opportunity pass you by. Join 10,000+
-              South Africans who built their future with KASI FIRST.
+            <p className="mx-auto mt-4 max-w-2xl text-lg opacity-90">
+              Join South Africans already using KASI FIRST to get
+              interview-ready.
             </p>
-            <button className="rounded-lg bg-white px-12 py-5 text-xl font-bold text-primary shadow-xl transition-all hover:bg-gray-100">
+            <a
+              href="/pages/cv-builder"
+              className="mt-8 inline-block rounded-lg bg-white px-10 py-4 text-lg font-bold text-primary"
+            >
               Build My CV Now
-            </button>
-          </div>
-        </section>
+            </a>
+          </section>
+        </main>
 
-        <footer className="w-full bg-[#f4f2fc] px-6 py-12 dark:bg-slate-900">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 text-center md:grid-cols-2 md:text-left">
-            <div className="space-y-6">
-              <div className="flex flex-col items-center md:items-start">
-                <span
-                  className="material-symbols-outlined text-sm leading-none text-secondary"
-                  style={{fontVariationSettings: "'FILL' 1"}}
-                >
-                  king_bed
-                </span>
-                <div className="font-headline flex items-baseline text-lg font-bold uppercase tracking-tighter text-[#0037b0]">
-                  KASI F
-                  <span className="relative">
-                    I
-                    <span
-                      className="material-symbols-outlined absolute -top-1 left-0 text-[10px] text-secondary"
-                      style={{fontVariationSettings: "'FILL' 1"}}
-                    >
-                      local_fire_department
-                    </span>
-                  </span>
-                  RST<span className="text-tertiary">.</span>
-                </div>
-              </div>
-              <p className="font-body max-w-sm text-sm leading-relaxed text-[#434655] dark:text-slate-400">
-                © 2024 KASI FIRST. Built with Ubuntu spirit. Empowering every
-                South African with the tools to build a better future.
+        <footer className="bg-surface-container-low px-4 py-10 md:px-6">
+          <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
+            <div>
+              <KasiFirstLogo className="h-16 w-48" />
+              <p className="mt-3 max-w-md text-sm text-on-surface-variant">
+                © 2026 KASI FIRST. Built for South African job seekers.
               </p>
-              <div className="flex justify-center gap-6 text-sm font-semibold text-[#434655] dark:text-slate-400 md:justify-start">
-                <a
-                  className="transition-colors hover:text-primary"
-                  href="/policies/privacy-policy"
-                >
-                  Privacy Policy
-                </a>
-                <a
-                  className="transition-colors hover:text-primary"
-                  href="/policies/terms-of-service"
-                >
-                  Terms of Service
-                </a>
-              </div>
             </div>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-              <div className="space-y-4">
-                <h5 className="font-bold text-primary">Need Help?</h5>
-                <ul className="space-y-2 text-sm text-on-surface-variant">
-                  <li className="flex items-center justify-center gap-2 md:justify-start">
-                    <span className="material-symbols-outlined text-sm">
-                      chat
-                    </span>
-                    <a
-                      className="underline hover:text-primary"
-                      href="https://wa.me/27600000000"
-                    >
-                      WhatsApp Support
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="transition-colors hover:text-primary"
-                      href="/pages/faq"
-                    >
-                      Frequently Asked Questions
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="transition-colors hover:text-primary"
-                      href="/blogs/news"
-                    >
-                      CV Writing Tips
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="space-y-4">
-                <h5 className="font-bold text-primary">Heritage</h5>
-                <ul className="space-y-2 text-sm text-on-surface-variant">
-                  <li>Proudly South African</li>
-                  <li>Built for the Kasi</li>
-                  <li>Job Seeker Community</li>
-                </ul>
-              </div>
+            <div className="grid gap-2 text-sm text-on-surface-variant md:justify-end">
+              <a href="/policies/privacy-policy" className="hover:text-primary">
+                Privacy Policy
+              </a>
+              <a
+                href="/policies/terms-of-service"
+                className="hover:text-primary"
+              >
+                Terms of Service
+              </a>
+              <a
+                href="https://wa.me/27600000000"
+                className="hover:text-primary"
+              >
+                WhatsApp Support
+              </a>
+              <a href="/pages/faq" className="hover:text-primary">
+                Frequently Asked Questions
+              </a>
             </div>
           </div>
         </footer>
 
         <a
-          className="fixed bottom-8 right-8 z-[60] flex items-center justify-center rounded-full bg-[#25D366] p-4 text-white shadow-2xl transition-transform hover:scale-110"
+          className="fixed bottom-6 right-6 z-50 rounded-full bg-[#25D366] p-4 text-white shadow-2xl"
           href="https://wa.me/27600000000"
           aria-label="Open WhatsApp support"
         >
-          <span
-            className="material-symbols-outlined text-3xl"
-            style={{fontVariationSettings: "'FILL' 1"}}
-          >
-            chat
-          </span>
+          WA
         </a>
-
-        <nav className="fixed bottom-0 left-0 z-50 flex w-full items-center justify-around rounded-t-2xl border-t border-[#c4c5d7]/15 bg-white/80 px-8 pb-6 pt-3 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] backdrop-blur-xl dark:bg-slate-900/80 md:hidden">
-          <a
-            className="flex items-center justify-center rounded-xl bg-[#1d4ed8] p-3 text-white shadow-lg"
-            href="/"
-          >
-            <span className="material-symbols-outlined">home</span>
-          </a>
-          <a
-            className="flex items-center justify-center p-3 text-[#434655] dark:text-slate-400"
-            href="/pages/cv-builder"
-          >
-            <span className="material-symbols-outlined">description</span>
-          </a>
-          <a
-            className="flex items-center justify-center p-3 text-[#434655] dark:text-slate-400"
-            href="https://wa.me/27600000000"
-          >
-            <span className="material-symbols-outlined">chat</span>
-          </a>
-        </nav>
       </div>
     </>
   );
