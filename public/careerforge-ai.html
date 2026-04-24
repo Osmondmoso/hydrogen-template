@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerForge AI — CV & Job Agent</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #7c6cff;
+    --accent2: #ff6c8a;
+    --gold: #ffd166;
+    --text: #e8e8f0;
+    --muted: #7878a0;
+    --green: #4ade80;
+    --red: #f87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(124,108,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,108,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow-orb { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+  .glow-orb-1 { width: 600px; height: 600px; background: rgba(124,108,255,0.08); top: -200px; right: -200px; }
+  .glow-orb-2 { width: 400px; height: 400px; background: rgba(255,108,138,0.06); bottom: -100px; left: -100px; }
+
+  .app { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 32px; border-bottom: 1px solid var(--border);
+    background: rgba(10,10,15,0.8); backdrop-filter: blur(20px);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+  .logo { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .logo span { color: var(--accent); }
+  .logo em { font-style: normal; color: var(--accent2); }
+
+  .credits-display { display: flex; align-items: center; gap: 16px; }
+
+  .credit-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface2); border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 100px;
+    font-size: 13px; font-weight: 500; color: var(--gold); transition: all 0.3s;
+  }
+  .credit-pill.low { color: var(--red); border-color: rgba(248,113,113,0.3); }
+  .credit-count { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; }
+
+  .btn-credits {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none; color: white; padding: 8px 18px; border-radius: 100px;
+    font-family: 'DM Mono', monospace; font-size: 13px; cursor: pointer; transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn-credits:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  main { display: flex; flex: 1; gap: 0; }
+
+  .sidebar {
+    width: 220px; border-right: 1px solid var(--border);
+    padding: 24px 16px; display: flex; flex-direction: column; gap: 4px;
+    position: sticky; top: 65px; height: calc(100vh - 65px);
+    background: rgba(10,10,15,0.6);
+  }
+
+  .nav-label { font-size: 10px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; padding: 12px 12px 6px; }
+
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+    border-radius: 10px; cursor: pointer; font-size: 13px; color: var(--muted);
+    transition: all 0.2s; border: 1px solid transparent; user-select: none;
+  }
+  .nav-item:hover { color: var(--text); background: var(--surface2); }
+  .nav-item.active { color: var(--accent); background: rgba(124,108,255,0.1); border-color: rgba(124,108,255,0.2); }
+  .nav-item .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+  .credit-cost { margin-left: auto; font-size: 10px; color: var(--gold); opacity: 0.7; }
+
+  .content { flex: 1; padding: 32px; max-width: 900px; overflow-y: auto; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-title { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 700; margin-bottom: 6px; line-height: 1.1; }
+  .section-subtitle { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+  .section-subtitle .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: rgba(255,209,102,0.1); border: 1px solid rgba(255,209,102,0.2);
+    color: var(--gold); padding: 2px 8px; border-radius: 100px; font-size: 11px; margin-left: 8px;
+  }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px; margin-bottom: 16px; transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(124,108,255,0.3); }
+
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .card-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.05em; color: var(--muted); text-transform: uppercase; }
+
+  .form-group { margin-bottom: 16px; }
+  label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.05em; }
+
+  input[type="text"], input[type="email"], textarea, select {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px; color: var(--text);
+    font-family: 'DM Mono', monospace; font-size: 13px; outline: none;
+    transition: border-color 0.2s; resize: vertical;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+  textarea { min-height: 90px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 10px; border: none;
+    font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), #9b8cff); color: white; }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .credit-cost-btn { font-size: 11px; background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px; color: var(--gold); }
+
+  .ai-output {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; min-height: 120px;
+    font-size: 13px; line-height: 1.7; color: var(--text);
+    white-space: pre-wrap; position: relative; display: none;
+  }
+  .ai-output.visible { display: block; }
+
+  .ai-output-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .loading { display: none; flex-direction: column; align-items: center; gap: 12px; padding: 32px; color: var(--muted); font-size: 13px; }
+  .loading.visible { display: flex; }
+  .spinner { width: 36px; height: 36px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .job-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 12px; transition: all 0.2s; }
+  .job-card:hover { border-color: rgba(124,108,255,0.4); transform: translateY(-2px); }
+  .job-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .job-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; }
+  .job-company { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .job-match { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: var(--green); background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+  .job-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .job-tag { font-size: 11px; padding: 3px 10px; border-radius: 100px; background: var(--surface2); border: 1px solid var(--border); color: var(--muted); }
+  .job-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 10px; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+  .stat-value { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 32px; color: var(--accent); }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  .tx-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .tx-icon { font-size: 18px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: var(--surface2); border-radius: 8px; }
+  .tx-desc { flex: 1; }
+  .tx-name { color: var(--text); font-weight: 500; }
+  .tx-time { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .tx-amount { font-family: 'Syne', sans-serif; font-weight: 700; }
+  .tx-amount.negative { color: var(--red); }
+  .tx-amount.positive { color: var(--green); }
+
+  .packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+  .package-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-align: center; transition: all 0.2s; cursor: pointer; position: relative; overflow: hidden; }
+  .package-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .package-card.popular { border-color: var(--accent); background: rgba(124,108,255,0.05); }
+  .popular-badge { position: absolute; top: 12px; right: -24px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; font-size: 10px; font-family: 'Syne', sans-serif; font-weight: 700; padding: 3px 32px; transform: rotate(35deg); }
+  .package-credits { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 36px; color: var(--gold); }
+  .package-label { font-size: 11px; color: var(--muted); margin: 4px 0 16px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .package-price { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+  .package-price span { font-size: 14px; font-family: 'DM Mono', monospace; color: var(--muted); }
+  .package-feature { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px; font-size: 13px; z-index: 1000; display: flex; align-items: center; gap: 10px; transform: translateY(80px); opacity: 0; transition: all 0.3s; max-width: 340px; }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.success { border-color: rgba(74,222,128,0.3); }
+  .toast.error { border-color: rgba(248,113,113,0.3); }
+
+  .skills-container { display: flex; flex-wrap: wrap; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; cursor: text; min-height: 48px; }
+  .skills-container:focus-within { border-color: var(--accent); }
+  .skill-tag { display: inline-flex; align-items: center; gap: 4px; background: rgba(124,108,255,0.15); border: 1px solid rgba(124,108,255,0.3); color: var(--accent); font-size: 12px; padding: 3px 10px; border-radius: 100px; }
+  .skill-tag button { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 14px; line-height: 1; padding: 0; }
+  .skills-input { border: none !important; background: transparent !important; padding: 0 !important; width: 120px; min-width: 0; outline: none; color: var(--text); font-family: 'DM Mono', monospace; font-size: 13px; }
+
+  .copy-btn { position: absolute; top: 12px; right: 12px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; font-family: 'DM Mono', monospace; }
+  .copy-btn:hover { color: var(--text); border-color: var(--accent); }
+  .ai-output-wrapper { position: relative; }
+
+  select option { background: #111118; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .packages { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+
+<div class="app">
+  <header>
+    <div class="logo">Career<span>Forge</span> <em>AI</em></div>
+    <div class="credits-display">
+      <div class="credit-pill" id="creditPill">
+        <span>⚡</span>
+        <span class="credit-count" id="creditCount">50</span>
+        <span style="color:var(--muted);font-size:11px">credits</span>
+      </div>
+      <button class="btn-credits" onclick="navigate('credits')">+ Buy Credits</button>
+    </div>
+  </header>
+
+  <main>
+    <aside class="sidebar">
+      <div class="nav-label">Tools</div>
+      <div class="nav-item active" onclick="navigate('cv')">
+        <span class="nav-icon">📄</span> CV Builder
+        <span class="credit-cost">5cr</span>
+      </div>
+      <div class="nav-item" onclick="navigate('cover')">
+        <span class="nav-icon">✉️</span> Cover Letter
+        <span class="credit-cost">3cr</span>
+      </div>
+      <div class="nav-item" onclick="navigate('jobs')">
+        <span class="nav-icon">🔍</span> Job Finder
+        <span class="credit-cost">4cr</span>
+      </div>
+      <div class="nav-item" onclick="navigate('analyze')">
+        <span class="nav-icon">🔬</span> CV Analyzer
+        <span class="credit-cost">3cr</span>
+      </div>
+      <div class="nav-item" onclick="navigate('interview')">
+        <span class="nav-icon">🎤</span> Interview Prep
+        <span class="credit-cost">5cr</span>
+      </div>
+      <div class="nav-label">Account</div>
+      <div class="nav-item" onclick="navigate('credits')">
+        <span class="nav-icon">⚡</span> Credits
+      </div>
+      <div class="nav-item" onclick="navigate('history')">
+        <span class="nav-icon">📋</span> History
+      </div>
+    </aside>
+
+    <div class="content">
+      <div class="section active" id="section-cv">
+        <div class="section-title">CV Builder</div>
+        <div class="section-subtitle">AI-crafted professional CVs tailored to your role <span class="badge">⚡ 5 credits</span></div>
+        <div class="card"><div class="card-header"><div class="card-title">Personal Information</div></div><p>Use the form below to build your CV.</p></div>
+      </div>
+
+      <div class="section" id="section-cover"><div class="section-title">Cover Letter</div><div class="section-subtitle">Tailored letters that get you noticed <span class="badge">⚡ 3 credits</span></div></div>
+      <div class="section" id="section-jobs"><div class="section-title">Job Finder</div><div class="section-subtitle">AI-curated job matches based on your profile <span class="badge">⚡ 4 credits</span></div><div id="jobs-results" style="display:none"></div></div>
+      <div class="section" id="section-analyze"><div class="section-title">CV Analyzer</div><div class="section-subtitle">Detailed ATS & quality score for your CV <span class="badge">⚡ 3 credits</span></div></div>
+      <div class="section" id="section-interview"><div class="section-title">Interview Prep</div><div class="section-subtitle">Custom Q&amp;A for your target role and company <span class="badge">⚡ 5 credits</span></div></div>
+
+      <div class="section" id="section-credits">
+        <div class="section-title">Credits</div>
+        <div class="section-subtitle">Power your career journey with credits</div>
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-value" id="stats-credits">50</div><div class="stat-label">Credits Remaining</div></div>
+          <div class="stat-card"><div class="stat-value" id="stats-used">0</div><div class="stat-label">Credits Used</div></div>
+          <div class="stat-card"><div class="stat-value" id="stats-actions">0</div><div class="stat-label">Actions Completed</div></div>
+        </div>
+      </div>
+
+      <div class="section" id="section-history">
+        <div class="section-title">History</div>
+        <div class="section-subtitle">Your credit transactions and activity</div>
+        <div class="card"><div id="history-list"><div style="color:var(--muted);font-size:13px;text-align:center;padding:24px">No activity yet. Start using the tools above!</div></div></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let credits = 50, creditsUsed = 0, actionsCompleted = 0;
+
+function navigate(section) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + section).classList.add('active');
+  const map = { cv:'cv build', cover:'cover', jobs:'job find', analyze:'analyzer', interview:'interview', credits:'credits', history:'history' };
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.textContent.toLowerCase().includes(map[section]||section)) n.classList.add('active');
+  });
+  updateDisplay();
+}
+
+function updateDisplay() {
+  document.getElementById('creditCount').textContent = credits;
+  document.getElementById('stats-credits').textContent = credits;
+  document.getElementById('stats-used').textContent = creditsUsed;
+  document.getElementById('stats-actions').textContent = actionsCompleted;
+  document.getElementById('creditPill').classList.toggle('low', credits < 10);
+}
+
+updateDisplay();
+</script>
+</body>
+</html>
