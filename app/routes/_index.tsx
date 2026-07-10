@@ -177,6 +177,7 @@ function makeTruck(x: number): Truck {
 }
 
 export default function Homepage() {
+  const cabinetRef = useRef<HTMLElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const gameRef = useRef<GameState>(createGame());
   const inputRef = useRef<InputState>({
@@ -189,6 +190,7 @@ export default function Homepage() {
   });
   const lastShotRef = useRef(0);
   const [hud, setHud] = useState(gameRef.current);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -230,8 +232,13 @@ export default function Homepage() {
       onKey(event, true);
     };
     const onKeyUp = (event: KeyboardEvent) => onKey(event, false);
+    const onFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement === cabinetRef.current);
+    };
+
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
+    document.addEventListener('fullscreenchange', onFullscreenChange);
 
     let animation = 0;
     const loop = () => {
@@ -246,6 +253,7 @@ export default function Homepage() {
       cancelAnimationFrame(animation);
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('keyup', onKeyUp);
+      document.removeEventListener('fullscreenchange', onFullscreenChange);
     };
   }, []);
 
@@ -253,6 +261,21 @@ export default function Homepage() {
     gameRef.current = createGame();
     gameRef.current.status = 'playing';
     setHud({...gameRef.current});
+  };
+
+  const toggleFullscreen = async () => {
+    if (!cabinetRef.current) return;
+
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+      return;
+    }
+
+    await cabinetRef.current.requestFullscreen();
+  };
+
+  const setMobileInput = (key: keyof InputState, isDown: boolean) => {
+    inputRef.current[key] = isDown;
   };
 
   const activeHostiles =
@@ -270,12 +293,25 @@ export default function Homepage() {
             and survive waves of infantry and drones in this arcade battlefield.
           </p>
         </div>
-        <button className="slug-start" onClick={startGame} type="button">
-          {hud.status === 'playing' ? 'Restart mission' : 'Start mission'}
-        </button>
+        <div className="slug-actions">
+          <button className="slug-start" onClick={startGame} type="button">
+            {hud.status === 'playing' ? 'Restart mission' : 'Start mission'}
+          </button>
+          <button
+            className="slug-start slug-fullscreen"
+            onClick={toggleFullscreen}
+            type="button"
+          >
+            {isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+          </button>
+        </div>
       </section>
 
-      <section className="slug-cabinet" aria-label="Playable arcade game">
+      <section
+        className="slug-cabinet"
+        aria-label="Playable arcade game"
+        ref={cabinetRef}
+      >
         <canvas
           aria-label="Slug Frontline game canvas"
           className="slug-canvas"
@@ -293,6 +329,59 @@ export default function Homepage() {
           <span>Score {hud.score}</span>
           <span>Hostiles {activeHostiles}</span>
         </div>
+        <div className="slug-mobile-controls" aria-label="Touch controls">
+          <div className="slug-stick" aria-label="Movement controls">
+            <button
+              aria-label="Move left"
+              onPointerDown={() => setMobileInput('left', true)}
+              onPointerCancel={() => setMobileInput('left', false)}
+              onPointerLeave={() => setMobileInput('left', false)}
+              onPointerUp={() => setMobileInput('left', false)}
+              type="button"
+            >
+              ◀
+            </button>
+            <button
+              aria-label="Jump"
+              onPointerDown={() => setMobileInput('up', true)}
+              onPointerCancel={() => setMobileInput('up', false)}
+              onPointerLeave={() => setMobileInput('up', false)}
+              onPointerUp={() => setMobileInput('up', false)}
+              type="button"
+            >
+              ▲
+            </button>
+            <button
+              aria-label="Move right"
+              onPointerDown={() => setMobileInput('right', true)}
+              onPointerCancel={() => setMobileInput('right', false)}
+              onPointerLeave={() => setMobileInput('right', false)}
+              onPointerUp={() => setMobileInput('right', false)}
+              type="button"
+            >
+              ▶
+            </button>
+          </div>
+          <div className="slug-buttons" aria-label="Action controls">
+            <button
+              aria-label="Switch weapon"
+              onClick={() => setMobileInput('switchWeapon', true)}
+              type="button"
+            >
+              Weapon
+            </button>
+            <button
+              aria-label="Fire weapon"
+              onPointerDown={() => setMobileInput('fire', true)}
+              onPointerCancel={() => setMobileInput('fire', false)}
+              onPointerLeave={() => setMobileInput('fire', false)}
+              onPointerUp={() => setMobileInput('fire', false)}
+              type="button"
+            >
+              Fire
+            </button>
+          </div>
+        </div>
       </section>
 
       <section className="slug-controls">
@@ -301,6 +390,10 @@ export default function Homepage() {
           <li>Move with WASD or arrow keys.</li>
           <li>Jump with W / Up. Fire with Space or Z.</li>
           <li>Switch weapons with X between Rifle, Spread, and Rocket.</li>
+          <li>On mobile, use the touch controls below the game canvas.</li>
+          <li>
+            Use the Fullscreen button for a bigger mobile or desktop cabinet.
+          </li>
           <li>Collect red medkits and yellow ammo crates to stay alive.</li>
         </ul>
       </section>
